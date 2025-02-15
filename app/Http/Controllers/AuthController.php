@@ -6,6 +6,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Services\Contracts\AuthServiceInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -28,5 +29,12 @@ class AuthController extends Controller
         $data = $this->authService->register($request);
 
         return $this->responseSuccess($data, "Usuario registrado correctamente", JsonResponse::HTTP_OK);
+    }
+
+    public function logout(Request $request)
+    {
+        $data = $this->authService->logout();
+
+        return $this->responseSuccess($data, "Usuario cerro sesión correctamente", JsonResponse::HTTP_OK);
     }
 }
