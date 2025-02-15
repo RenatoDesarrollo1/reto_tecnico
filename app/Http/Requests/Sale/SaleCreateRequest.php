@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Sale;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SaleRequest extends FormRequest
+class SaleCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class SaleRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => ['sometimes', 'required', 'string', 'size:8', 'unique:sales,code'],
+            'code' => ['required', 'string', 'size:8', 'unique:sales,code'],
             'client_name' => ['required', 'string', 'max:255'],
             'client_doctype' => ['required', 'string', Rule::in(['DNI', 'RUC'])],
             'client_doc' => ['required', 'string', 'max:20'],
