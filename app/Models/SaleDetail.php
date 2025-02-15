@@ -10,12 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class SaleDetail extends BaseModel
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = [
-        'sale_id',
-        'product_id',
-        'quantity',
-        'unit_price',
-        'subtotal',
+    protected $guarded = [
     ];
 
     protected $messages = [

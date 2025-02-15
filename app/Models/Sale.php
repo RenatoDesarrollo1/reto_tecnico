@@ -12,15 +12,7 @@ class Sale extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'code',
-        'customer_name',
-        'id_type',
-        'id_number',
-        'customer_email',
-        'seller_id',
-        'total_amount',
-        'date_time',
+    protected $guarded = [
     ];
 
     protected $messages = [

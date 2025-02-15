@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +34,7 @@ Route::middleware(['throttle:api'])->group(function () {
         Route::patch("/product/{id}", [ProductController::class, 'update'])->middleware(['role:admin|seller']);
         Route::delete("/product/{id}", [ProductController::class, 'destroy'])->middleware(['role:admin']);
 
-        Route::get('/sale', [ProductController::class, 'index'])->middleware(['role:admin']);
-        Route::post("/sale", [ProductController::class, 'store'])->middleware(['role:admin|seller']);
+        Route::get('/sale', [SaleController::class, 'index'])->middleware(['role:admin']);
+        Route::post("/sale", [SaleController::class, 'store'])->middleware(['role:admin|seller']);
     });
 });

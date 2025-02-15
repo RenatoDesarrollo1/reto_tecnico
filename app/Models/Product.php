@@ -11,11 +11,7 @@ class Product extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'sku',
-        'name',
-        'unit_price',
-        'stock',
+    protected $guarded = [
     ];
 
     protected $messages = [

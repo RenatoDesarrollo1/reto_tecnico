@@ -18,15 +18,15 @@ class SaleService implements SaleServiceInterface
         $startDate = $request->start_date ?? Carbon::now()->startOfMonth();
         $endDate = $request->end_date ?? Carbon::now()->endOfMonth();
 
-        $products = Product::query();
+        $sales = Sale::with(['saleDetails']);
 
         if ($startDate && $endDate) {
-            $products->whereBetween('date_time', [$startDate, $endDate]);
+            $sales->whereBetween('date_time', [$startDate, $endDate]);
         }
 
-        $products = $products->get();
+        $sales = $sales->get();
 
-        return $products;
+        return $sales;
     }
 
     public function create(SaleCreateRequest $request)
@@ -36,7 +36,7 @@ class SaleService implements SaleServiceInterface
             $productsarr = $request->products ?? [];
             $productIds = collect($productsarr)->pluck('product_id')->toArray();
 
-            $products = Product::whereIn('id', $productIds)->select(['id', 'unit_price', 'stock', 'name'])->get()->keyBy('id');
+            $products = Product::whereIn('id', $productIds)->select(['id', 'unit_price', 'stock', 'name', 'sku'])->get()->keyBy('id');
 
             $saleDetails = [];
             $updates = [];
@@ -49,7 +49,7 @@ class SaleService implements SaleServiceInterface
                 }
 
                 $product = $products[$productId];
-                $price = $productData['price'] ?? $product->price;
+                $price = $productData['price'] ?? $product->unit_price;
                 $quantity = $productData['quantity'];
                 $subtotal = $price * $quantity;
 
@@ -65,14 +65,15 @@ class SaleService implements SaleServiceInterface
                 ];
 
                 $totalAmount += $subtotal;
-
                 $updates[$productId] = [
                     'id' => $productId,
+                    'sku' => $product->sku,
+                    'unit_price' => $product->unit_price,
+                    'name' => $product->name,
                     'stock' => $product->stock - $quantity,
                 ];
             }
-
-            $sale = Sale::with('saleDetails')->create([...$request->except(['products']), 'total_amount' => $subtotal]);
+            $sale = Sale::with('saleDetails')->create([...$request->except(['products']), 'total_amount' => $totalAmount]);
 
             $sale->saleDetails()->createMany($saleDetails);
 

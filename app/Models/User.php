@@ -31,6 +31,11 @@ class User extends Authenticatable implements JWTSubject
         'notfound' => "Este usuario no existe"
     ];
 
+    public function getMessage($property)
+    {
+        return $this->messages[$property] ?? "";
+    }
+    
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -2,11 +2,11 @@
 
 namespace App\Exceptions;
 
-use App\Models\BaseModel;
 use App\Traits\ResponseTrait;
 use Illuminate\Validation\ValidationException;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Illuminate\Http\JsonResponse;
@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler
         $this->renderable(function (NotFoundHttpException $e, $request) {
             $prev = $e->getPrevious();
             $modelClass = $prev->getModel();
-            if (class_exists($modelClass) && is_subclass_of($modelClass, BaseModel::class)) {
+            if (class_exists($modelClass) && is_subclass_of($modelClass, Model::class)) {
                 $modelInstance = new $modelClass();
                 $message = $modelInstance->getMessage('notfound');
             }
