@@ -23,6 +23,10 @@ class Sale extends Model
         'date_time',
     ];
 
+    protected $messages = [
+        'notfound' => "Esta venta no existe"
+    ];
+
     public function seller(): BelongsTo
     {
         return $this->belongsTo(User::class, 'seller_id');

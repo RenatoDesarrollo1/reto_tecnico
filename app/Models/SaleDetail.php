@@ -18,6 +18,10 @@ class SaleDetail extends Model
         'subtotal',
     ];
 
+    protected $messages = [
+        'notfound' => "Este detalle no existe"
+    ];
+
     public function sale(): BelongsTo
     {
         return $this->belongsTo(Sale::class);

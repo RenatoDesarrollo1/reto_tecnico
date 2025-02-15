@@ -18,6 +18,10 @@ class Product extends Model
         'stock',
     ];
 
+    protected $messages = [
+        'notfound' => "Este producto no existe"
+    ];
+
     public function saleDetails(): HasMany
     {
         return $this->hasMany(SaleDetail::class);

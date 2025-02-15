@@ -27,6 +27,10 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
 
+    protected $messages = [
+        'notfound' => "Este usuario no existe"
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -15,8 +15,6 @@ class SaleService implements SaleServiceInterface
 {
     public function list(SaleRequest $request)
     {
-        $perpage = $request->perpage ?? 0;
-
         $startDate = $request->start_date ?? Carbon::now()->startOfMonth();
         $endDate = $request->end_date ?? Carbon::now()->endOfMonth();
 
@@ -26,7 +24,7 @@ class SaleService implements SaleServiceInterface
             $products->whereBetween('date_time', [$startDate, $endDate]);
         }
 
-        $products = $products->paginate($perpage);
+        $products = $products->get();
 
         return $products;
     }
@@ -74,7 +72,7 @@ class SaleService implements SaleServiceInterface
                 ];
             }
 
-            $sale = Sale::create([...$request->except(['products']), 'total_amount' => $subtotal]);
+            $sale = Sale::with('saleDetails')->create([...$request->except(['products']), 'total_amount' => $subtotal]);
 
             $sale->saleDetails()->createMany($saleDetails);
 

@@ -59,6 +59,6 @@ class ProductService implements ProductServiceInterface
             throw new \Exception('El producto no se pudo eliminar', JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return $isdeleted;
+        return $product;
     }
 }
