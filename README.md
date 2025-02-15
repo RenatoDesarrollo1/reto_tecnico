@@ -51,3 +51,4 @@ Gestión de usuarios y roles (Administrador y Vendedor)
 	* **Manejo de excepciones:** Se ha implementado un buen manejo de excepciones, lo que permite capturar errores y mostrar mensajes informativos al usuario o realizar acciones específicas en caso de error.
 
 [Diagrama Entidad Relación](https://imgur.com/OGxQv7T)
+[Video explicación](https://youtu.be/apKXbZvrKWk)
