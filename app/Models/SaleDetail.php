@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SaleDetail extends Model
+class SaleDetail extends BaseModel
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
