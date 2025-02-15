@@ -9,6 +9,7 @@ use App\Models\Sale;
 use App\Services\Contracts\SaleServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SaleService implements SaleServiceInterface
@@ -18,7 +19,7 @@ class SaleService implements SaleServiceInterface
         $startDate = $request->start_date ?? Carbon::now()->startOfMonth();
         $endDate = $request->end_date ?? Carbon::now()->endOfMonth();
 
-        $sales = Sale::with(['saleDetails']);
+        $sales = Sale::with(['saleDetails', 'seller']);
 
         if ($startDate && $endDate) {
             $sales->whereBetween('date_time', [$startDate, $endDate]);
@@ -73,7 +74,7 @@ class SaleService implements SaleServiceInterface
                     'stock' => $product->stock - $quantity,
                 ];
             }
-            $sale = Sale::with('saleDetails')->create([...$request->except(['products']), 'total_amount' => $totalAmount]);
+            $sale = Sale::create([...$request->except(['products']), 'total_amount' => $totalAmount, 'seller_id' => Auth::id()]);
 
             $sale->saleDetails()->createMany($saleDetails);
 
