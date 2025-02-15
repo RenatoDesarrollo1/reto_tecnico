@@ -17,7 +17,6 @@ class SalesReportExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        dd($this->sales);
         return $this->sales->map(function ($sale) {
             return [
                 'codigo' => $sale->code,
