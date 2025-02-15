@@ -48,7 +48,8 @@ Gestión de usuarios y roles (Administrador y Vendedor)
 	* **Generación de reportes con Laravel Excel:** Se implementó Laravel Excel para la generación de reportes en diferentes formatos (ej: Excel, CSV). Esto simplifica la creación de reportes personalizados con datos de la aplicación. 
 	* **Transacciones de base de datos:** Se utilizan transacciones de base de datos para asegurar la integridad de los datos en operaciones que involucran múltiples consultas. Si alguna consulta falla, se revierte toda la operación, evitando inconsistencias en la base de datos. 
 	*  **Validación de Requests:** Se utilizan `Request` en Laravel para validar los datos que llegan desde las solicitudes del usuario antes de que sean procesados por la aplicación. Esto ayuda a prevenir errores y a garantizar que los datos cumplan con ciertos criterios. 
-	* **Manejo de excepciones:** Se ha implementado un buen manejo de excepciones, lo que permite capturar errores y mostrar mensajes informativos al usuario o realizar acciones específicas en caso de error.
+	* **Manejo de excepciones:** Se ha implementado un buen manejo de excepciones, lo que permite capturar errores y mostrar mensajes informativos al usuario o realizar acciones específicas en caso de error. (Exception/Handler.php)
+	* **Uso de índices** Se ha implementado indices en ciertas consultas como el login y el reporte de ventas, esto optimizará dichas las consultas.
 
 [Diagrama Entidad Relación](https://imgur.com/OGxQv7T)
 [Video explicación](https://youtu.be/apKXbZvrKWk)
